@@ -1,0 +1,15 @@
+<mat-sidenav-container class="h-full" autosize>
+  <mat-sidenav #nav opened mode="side" disableClose
+               [ngClass]="{'drawer-closed': !isNavbarOpened, 'drawer-open': isNavbarOpened}">
+    <div class="bg-accent-second-tw h-screen overflow-hidden">
+      <app-vertical-navigation [isNavbarOpened]="isNavbarOpened"
+                               (isNavbarOpenedChange)="onIsNavbarOpenedChange($event)"></app-vertical-navigation>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-toolbar [isNavbarOpened]="isNavbarOpened"></app-toolbar>
+    <div class="content-container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
