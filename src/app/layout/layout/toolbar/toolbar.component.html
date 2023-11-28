@@ -2,8 +2,10 @@
   <!--button mat-icon-button (click)="isNavbarOpened = !isNavbarOpened">
     <mat-icon>menu</mat-icon>
   </button-->
-  <p class="text-3xl font-bold">Paragon</p>
-
+  <div class="flex gap-2 items-center">
+    <p class="text-3xl font-bold">Paragon</p>
+    <span class="text-base text-accent-tw self-end">v{{ appVersion }}</span>
+  </div>
   <span class="flex-grow"></span>
   <button mat-icon-button>
     <mat-icon>settings</mat-icon>

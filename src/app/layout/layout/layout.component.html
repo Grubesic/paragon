@@ -7,9 +7,23 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-toolbar [isNavbarOpened]="isNavbarOpened"></app-toolbar>
-    <div class="content-container">
-      <router-outlet></router-outlet>
+    <div class="grid grid-rows-[auto,1fr,50px] h-full">
+
+      <!-- Header section -->
+      <header>
+        <app-toolbar [isNavbarOpened]="isNavbarOpened" class="row-span-1"></app-toolbar>
+      </header>
+
+      <!-- Middle content section -->
+      <div class="content-container row-span-1 overflow-y-auto">
+        <router-outlet></router-outlet>
+      </div>
+
+      <!-- Footer section -->
+      <div class="row-span-1 bg-accent-second-tw">
+        <app-footer></app-footer>
+      </div>
+
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

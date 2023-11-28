@@ -1,18 +1,25 @@
-<div class="grid grid-rows-[auto,1fr,auto] h-screen">
-  <div class="mt-1 flex row-auto">
-    <img *ngIf="!isNavbarOpened" src="assets/logo/logo.png" class="h-16 w-16" alt="">
-    <div *ngIf="isNavbarOpened" class="flex flex-col content-center justify-center">
-      <div class="text-xs">
-        Robert Grubesic [R00092 839] Systemadministratör
+<div class="grid grid-rows-[100px,1fr,64px] h-screen">
+
+  <!-- Top section: logo or user info -->
+  <div>
+    <img *ngIf="!isNavbarOpened" src="assets/logo/logo.png" alt="Logo" class="h-16 w-16">
+    <div *ngIf="isNavbarOpened" class="flex-col ">
+      <div
+        class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-primary-tw">
+        <span class="font-medium text-gray-600 dark:text-gray-300">RG</span>
       </div>
-      <div class="text-xs">
-        Polismyndigheten: Region Stockholm [5390]
+
+      <div class="text-xs dark:text-primary-tw">
+        <div>Robert Grubesic [R00092 839]</div>
+        <div>Systemadministratör</div>
+        <div>Polismyndigheten: Region Stockholm [5390]</div>
       </div>
     </div>
 
   </div>
-  <mat-divider></mat-divider>
-  <div class="flex-grow xmt-5">
+
+
+  <div class="overflow-y-auto">
     <mat-nav-list>
       <ng-container *ngFor="let route of routeLinks">
         <a *ngIf="route.path && route.data" [ngClass]="{'border-l-4 border-primary-tw': rla.isActive}"
@@ -24,55 +31,21 @@
             <span  [ngClass]="{'text-primary-tw': rla.isActive}" *ngIf="isNavbarOpened">{{ route.data['name'] }}</span>
           </div>
         </a>
+        <mat-divider></mat-divider>
       </ng-container>
-    </mat-nav-list>
-    <mat-divider></mat-divider>
-  </div>
 
-  <div class="flex content-end justify-end mb-2 mr-2">
-    <button *ngIf="isNavbarOpened" mat-mini-fab class="flex justify-end" (click)="toggleNavbar()">
-      <mat-icon>keyboard_backspace</mat-icon>
-    </button>
-    <button *ngIf="!isNavbarOpened" mat-mini-fab class="flex justify-end" (click)="toggleNavbar()">
-      <mat-icon>arrow_right_alt</mat-icon>
-    </button>
-  </div>
-</div>
-
-<div class="grid grid-rows-[auto,1fr,auto] h-screen">
-
-  <!-- Top section: logo or user info -->
-  <div class="flex flex-col justify-center items-center p-4">
-    <!-- Toggle between logo and user information based on navbar state -->
-    <img *ngIf="!isNavbarOpened" src="assets/logo/logo.png" alt="Logo" class="h-16 w-16">
-    <div *ngIf="isNavbarOpened" class="text-center">
-      <div class="text-xs">Robert Grubesic [R00092 839]</div>
-      <div class="text-xs">Systemadministratör</div>
-      <div class="text-xs">Polismyndigheten: Region Stockholm [5390]</div>
-    </div>
-  </div>
-
-  <!-- Middle section for navigation -->
-  <div class="overflow-y-auto">
-    <mat-nav-list>
-      <ng-container *ngFor="let route of routeLinks">
-        <a *ngIf="route.path && route.data" [routerLink]="route.path" routerLinkActive="active-link" #rla="routerLinkActive"
-           class="flex items-center gap-2 p-2 hover:bg-gray-100">
-          <mat-icon [color]="rla.isActive ? 'primary' : undefined">{{ route.data.icon }}</mat-icon>
-          <span *ngIf="isNavbarOpened" [ngClass]="{'text-primary-tw': rla.isActive}">{{ route.data.name }}</span>
-        </a>
-      </ng-container>
     </mat-nav-list>
   </div>
 
-  <!-- Bottom section: toggle button -->
-  <div class="flex justify-center items-center p-4">
-    <button *ngIf="isNavbarOpened" (click)="toggleNavbar()" mat-mini-fab aria-label="Close navigation">
+  <div class="flex items-center justify-end border-t border-gray-300">
+    <button *ngIf="isNavbarOpened" mat-mini-fab class="mr-2" (click)="toggleNavbar()" aria-label="Close navigation">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
-    <button *ngIf="!isNavbarOpened" (click)="toggleNavbar()" mat-mini-fab aria-label="Open navigation">
+    <button *ngIf="!isNavbarOpened" mat-mini-fab class="mr-2" (click)="toggleNavbar()" aria-label="Open navigation">
       <mat-icon>arrow_right_alt</mat-icon>
     </button>
   </div>
+
 </div>
+
 

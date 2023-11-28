@@ -8,7 +8,8 @@ module.exports = {
       colors: {
         'primary-tw': '#0C3256', // paragon primary
         'accent-tw': '#FFCC33', // paragon accent
-        'accent-second-tw': '#e4e8ed' // paragon accent
+        'accent-second-tw': '#e4e8ed' // paragon accent second
+
       }
     },
   },

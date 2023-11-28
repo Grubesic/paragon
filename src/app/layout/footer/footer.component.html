@@ -1,0 +1,34 @@
+<footer>
+  <!--button mat-icon-button (click)="isNavbarOpened = !isNavbarOpened">
+    <mat-icon>menu</mat-icon>
+  </button-->
+  <div class="flex gap-2 items-center justify-center divide-x-4 divide-y border-b-2">
+    <p class="text-sm font-bold ml-1">&#64;Paragon 2023</p>
+
+
+
+    <span class="flex-grow"></span>
+    <div class="flex gap-10">
+      <div class="flex items-center gap-2">
+        <mat-divider vertical="true"></mat-divider>
+        <mat-icon>desktop_mac</mat-icon>
+        <span> lx503218</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <mat-icon>today</mat-icon>
+        <span>{{ currentYear }}</span>
+      </div>
+
+      <!-- Live clock with clock icon -->
+      <div class="flex items-center gap-2">
+        <mat-icon>access_time</mat-icon>
+        <span>{{ currentTime }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!--button mat-mini-fab>
+    <mat-icon>notifications</mat-icon>
+  </button-->
+</footer>

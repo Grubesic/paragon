@@ -9,11 +9,12 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatLineModule} from "@angular/material/core";
+import {FooterComponent} from "../footer/footer.component";
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ToolbarComponent, VerticalNavigationComponent, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatLineModule],
+  imports: [CommonModule, RouterOutlet, ToolbarComponent, VerticalNavigationComponent, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatLineModule, FooterComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
