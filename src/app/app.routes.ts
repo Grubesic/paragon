@@ -4,9 +4,11 @@ import {DocumentationComponent} from "./modules/documentation/documentation.comp
 import {VideoUploadComponent} from "./modules/video/video-upload/video-upload.component";
 import {VideoListComponent} from "./modules/video/video-list/video-list.component";
 import {VideoPlayerComponent} from "./modules/video/video-player/video-player.component";
+import {GeneratorInputComponent} from "./generator-input/generator-input.component";
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent},
+  { path: '', component: GeneratorInputComponent},
+  { path: 'generator-input', component: GeneratorInputComponent, data: { icon: 'contacts', name: 'Generate Test Data' }},
   { path: 'dashboard', component: DashboardComponent, data: { icon: 'dashboard', name: 'Dashboard' }},
   { path: 'documentation', component: DocumentationComponent, data: { icon: 'menu_book', name: 'Documentation' }},
   { path: 'video-upload', component: VideoUploadComponent, data: { icon: 'video_call', name: 'Upload video' }},

@@ -7,7 +7,7 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div class="grid grid-rows-[auto,1fr,50px] h-full">
+    <div class="grid grid-rows-[auto,1fr] h-full">
 
       <!-- Header section -->
       <header>
@@ -15,14 +15,14 @@
       </header>
 
       <!-- Middle content section -->
-      <div class="content-container row-span-1 overflow-y-auto">
+      <div class="content-container row-span-1 overflow-y-auto h-full">
         <router-outlet></router-outlet>
       </div>
 
       <!-- Footer section -->
-      <div class="row-span-1 bg-accent-second-tw">
+      <!--div class="row-span-1 bg-accent-second-tw">
         <app-footer></app-footer>
-      </div>
+      </div-->
 
     </div>
   </mat-sidenav-content>
