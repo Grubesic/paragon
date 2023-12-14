@@ -23,4 +23,8 @@ export class VideoService {
   getVideo(name: string) {
     return this.http.get(`${this.apiUrl}/${name}`, { responseType: 'blob' });
   }
+
+  getVideoUrl(name: string): string {
+    return this.apiUrl+ '/' + name;
+  }
 }

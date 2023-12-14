@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {VideoService} from "../video.service";
 import {Router} from "@angular/router";
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
   selector: 'app-video-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './video-list.component.html',
   styleUrl: './video-list.component.scss'
 })

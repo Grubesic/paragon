@@ -18,6 +18,7 @@ export class VideoPlayerComponent implements OnInit{
   videoName: string = '';
   videoUrl: SafeUrl | null = null;
   loading: boolean = true;
+  errorMessages: string[] = [];
 
   constructor(private videoService: VideoService, private sanitizer: DomSanitizer, private route: ActivatedRoute,
               private router: Router) {}
@@ -26,10 +27,7 @@ export class VideoPlayerComponent implements OnInit{
     this.route.params.subscribe(params => {
       const name = params['name'];
       this.videoName = name;
-      this.videoService.getVideo(name).subscribe(blob => {
-        const objectURL = URL.createObjectURL(blob);
-        this.videoUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-      });
+      this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoService.getVideoUrl(name));
     });
   }
 
@@ -43,10 +41,7 @@ export class VideoPlayerComponent implements OnInit{
 
   ngOnChanges() {
     if (this.videoName) {
-      this.videoService.getVideo(this.videoName).subscribe(blob => {
-        const objectURL = URL.createObjectURL(blob);
-        this.videoUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-      });
+      this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoService.getVideoUrl(this.videoName));
     }
   }
 }
