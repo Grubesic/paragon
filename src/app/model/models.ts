@@ -81,3 +81,49 @@ export class ImageData {
   }
 }
 
+export class JobStatus {
+  running_size: number;
+  finished_size: number;
+  last_job_id: number;
+
+  constructor(running_size: number, finished_size: number, last_job_id: number) {
+    this.running_size = running_size;
+    this.finished_size = finished_size;
+    this.last_job_id = last_job_id;
+  }
+}
+
+
+export class JobResult {
+  base64: string | null;
+  url: string;
+  seed: string;
+  finish_reason: string;
+
+  constructor(base64: string | null, url: string, seed: string, finish_reason: string) {
+    this.base64 = base64;
+    this.url = url;
+    this.seed = seed;
+    this.finish_reason = finish_reason;
+  }
+}
+
+export class JobProgressStatus {
+  job_id: number;
+  job_type: string;
+  job_stage: string;
+  job_progress: number;
+  job_status: string;
+  job_step_preview: string;
+  job_result: JobResult[];
+
+  constructor(job_id: number, job_type: string, job_stage: string, job_progress: number, job_status: string, job_step_preview: string, job_result: JobResult[]) {
+    this.job_id = job_id;
+    this.job_type = job_type;
+    this.job_stage = job_stage;
+    this.job_progress = job_progress;
+    this.job_status = job_status;
+    this.job_step_preview = job_step_preview;
+    this.job_result = job_result;
+  }
+}
