@@ -21,4 +21,8 @@ export class GeneratorService {
     return this.http.get<JobProgressStatus>(`${this.apiUrl}/v1/generation/query-job?job_id=${jobId}&require_step_preivew=true`);
   }
 
+  stopJob(){
+    return this.http.post(`${this.apiUrl}/v1/generation/stop`, "");
+  }
+
 }
