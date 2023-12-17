@@ -4,6 +4,7 @@
 
 `docker build -t grubesic/paragon .`
 
+`docker build  --platform=linux/amd64 -t grubesic/paragon . (Om du bygger från Mac) `
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.1.
 
