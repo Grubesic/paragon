@@ -127,3 +127,4 @@ export class JobProgressStatus {
     this.job_result = job_result;
   }
 }
+

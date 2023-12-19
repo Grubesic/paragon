@@ -14,11 +14,14 @@ import {GeneratorService} from "../../generator-input/generator.service";
 import {ImageSettings, JobProgressStatus} from "../../model/models";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {ImageSeed} from "../../model/imagedata";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatRadioModule} from "@angular/material/radio";
 
 @Component({
   selector: 'app-image2image',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatProgressBarModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatRadioModule],
   templateUrl: './image2image.component.html',
   styleUrl: './image2image.component.scss'
 })
@@ -41,6 +44,12 @@ export class Image2imageComponent implements OnInit{
   jobStage = ""
   base64GeneratedImage: string = '';
   imageSeedData: ImageSeed = new ImageSeed();
+
+  hairColor: string = "blonde"
+  age: number = 0;
+  hairLength: string = "short"
+  nationality: string = "swedish"
+  gender: string = "man"
 
   uploadedImagePath: string = ''
 
