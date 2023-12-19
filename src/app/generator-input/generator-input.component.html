@@ -39,9 +39,14 @@
             <button [disabled]="isGenerating" class="flex self-center" type="submit" mat-icon-button aria-label="Send">
               <mat-icon color="primary">send</mat-icon>
             </button>
-
-
           </div>
+          <label for="negative" class="block mb-2 mt-2 text-sm font-medium text-gray-900">Negative prompt</label>
+
+          <textarea [disabled]="isGenerating" id="negative" rows="4"
+                    [(ngModel)]="negative"
+                    name="negative"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-tw focus:border-primary-tw"
+                    placeholder="Negative prompt..."></textarea>
         </form>
       </mat-card-content>
     </mat-card>

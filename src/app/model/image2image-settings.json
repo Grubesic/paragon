@@ -2,9 +2,6 @@
   "prompt": "",
   "negative_prompt": "",
   "style_selections": [
-    "Fooocus V2",
-    "Fooocus Enhance",
-    "Fooocus Sharp"
   ],
   "performance_selection": "Speed",
   "aspect_ratios_selection": "960×1280",
@@ -12,7 +9,7 @@
   "image_seed": -1,
   "sharpness": 2,
   "guidance_scale": 4,
-  "base_model_name": "juggernautXL_version6Rundiffusion.safetensors",
+  "base_model_name": "juggernautXL_version7Rundiffusion.safetensors",
   "refiner_model_name": "None",
   "refiner_switch": 0.5,
   "loras": [
@@ -28,7 +25,7 @@
     "adm_scaler_end": 0.3,
     "refiner_swap_method": "joint",
     "adaptive_cfg": 7,
-    "sampler_name": "dpmpp_2m_sde_gpu",
+    "sampler_name": "DPM2MKarras",
     "scheduler_name": "karras",
     "overwrite_step": -1,
     "overwrite_switch": -1,

@@ -23,7 +23,17 @@ export class GeneratorInputComponent {
 
   base64GeneratedImage: string = '';
   isGenerating: boolean = false;
-  prompt: string = 'generate photo realistic passport image mug shot of a old man in with black hair. The background has to be white and the whole head should be visible and in the middle of the picture';
+  prompt: string = "studio frontal portrait photo of a 45 year old portugise male, no smile, rosacea skin, natural hair,\n" +
+    "portrait light, film still, white background, 2,5 meter distance";
+  negative: string = "(worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated,\n" +
+    "overexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4),\n" +
+    "(watermark, signature, text font, username, error, logo, words, letters, digits, autograph,\n" +
+    "trademark, name:1.2), (blur, blurry, grainy), morbid, ugly, asymmetrical, mutated malformed,\n" +
+    "mutilated, poorly lit, bad shadow, draft, cropped, out of frame, cut off, censored, jpeg artifacts,\n" +
+    "out of focus, glitch, duplicate, (airbrushed, cartoon, anime, semi-realistic, cgi, render, blender,\n" +
+    "digital art, manga, amateur:1.3), (3D ,3D Game, 3D Game Scene, 3D Character:1.1), (bad hands,\n" +
+    "bad iris, bad eyes, bad anatomy, bad body, bad face, bad teeth, bad arms, bad legs,\n" +
+    "deformities:1.3), (open mouth)"
   progress: number = 0;
   jobStatus = ""
   jobStage = ""
@@ -35,6 +45,9 @@ export class GeneratorInputComponent {
     const imageSettings = new ImageSettings(imageData);
 
     imageSettings.prompt = this.prompt;
+    imageSettings.negative_prompt = this.negative
+
+    console.log(imageSettings)
 
     this.generatorService.getJobs().subscribe({
       next: (jobStatus) => {

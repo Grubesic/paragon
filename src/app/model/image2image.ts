@@ -88,7 +88,7 @@ export class ImagePrompt {
   constructor() {
     this.cn_img = '';
     this.cn_stop = 0.5;
-    this.cn_weight = 0.6;
+    this.cn_weight = 0.5;
     this.cn_type = 'ImagePrompt';
   }
 }

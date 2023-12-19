@@ -3,3 +3,13 @@
   height: 320px;
 }
 
+.relative {
+  position: relative;
+}
+
+.upload-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 2px;
+}

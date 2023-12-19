@@ -14,7 +14,7 @@ export class ImageService {
   getImages(): string[] {
     const imageNames: string[] = [];
 
-    for (let i = 1; i <= 35; i++) {
+    for (let i = 1; i <= 48; i++) {
       imageNames.push(`${this.folderPath}image${i}.png`);
     }
 
