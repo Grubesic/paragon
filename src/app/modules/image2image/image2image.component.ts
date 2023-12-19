@@ -21,8 +21,8 @@ import {GeneratorService} from "../../generator-input/generator.service";
 export class Image2imageComponent implements OnInit{
 
   imagePath: string = ""
-  prompt: string = ""
-  negative: string = ""
+  prompt: string = "generate passport photo of the same man but 20 years younger"
+  negative: string = "no other background than white"
   isGenerating: boolean = false;
   progress: number = 0;
   jobStatus = ""
@@ -47,6 +47,7 @@ export class Image2imageComponent implements OnInit{
     const imagePrompt = new ImagePrompt()
     imagePrompt.cn_img = base64String
     imageRequest.image_prompts.push(imagePrompt)
+
     console.log("Image prompts size: " + imageRequest.image_prompts.length)
 
     imageRequest.prompt = this.prompt
