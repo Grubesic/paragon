@@ -11,17 +11,18 @@ import data from '../../model/data.json'
 
 import {Image2ImageSettings, ImagePrompt} from "../../model/image2image";
 import {GeneratorService} from "../../generator-input/generator.service";
-import {ImageSettings, JobProgressStatus} from "../../model/models";
+import {ImageSettings, JobProgressStatus, JobResult} from "../../model/models";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {ImageSeed} from "../../model/imagedata";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
+import {MatSliderModule} from "@angular/material/slider";
 
 @Component({
   selector: 'app-image2image',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatRadioModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatRadioModule, MatSliderModule],
   templateUrl: './image2image.component.html',
   styleUrl: './image2image.component.scss'
 })
@@ -174,6 +175,9 @@ export class Image2imageComponent implements OnInit{
               console.log(jobProgressStatus);
               if(jobProgressStatus.job_result != null ){
                 clearInterval(intervalId);
+                let jobResult: JobResult = jobProgressStatus.job_result[0]
+                if(jobResult != null && jobResult.finish_reason == "SUCCESS" && jobResult.base64 != null)
+                  this.base64GeneratedImage = jobResult.base64
                 this.progress = 0
                 this.jobStatus = ""
                 this.jobStage = ""

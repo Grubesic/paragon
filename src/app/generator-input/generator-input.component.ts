@@ -6,7 +6,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
 
 import imageData from '../model/image-settings.json';
-import {ImageSettings, JobProgressStatus} from "../model/models";
+import {ImageSettings, JobProgressStatus, JobResult} from "../model/models";
 import {GeneratorService} from "./generator.service";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {FormsModule} from "@angular/forms";
@@ -62,6 +62,9 @@ export class GeneratorInputComponent {
               console.log(jobProgressStatus);
               if(jobProgressStatus.job_result != null ){
                 clearInterval(intervalId);
+               let jobResult: JobResult = jobProgressStatus.job_result[0]
+                if(jobResult != null && jobResult.finish_reason == "SUCCESS" && jobResult.base64 != null)
+                this.base64GeneratedImage = jobResult.base64
                 this.progress = 0
                 this.jobStatus = ""
                 this.jobStage = ""

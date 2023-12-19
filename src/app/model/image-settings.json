@@ -6,7 +6,7 @@
   "performance_selection": "Speed",
   "aspect_ratios_selection": "960×1280",
   "image_number": 1,
-  "image_seed": -1,
+  "image_seed": "-1",
   "sharpness": 2,
   "guidance_scale": 4,
   "base_model_name": "juggernautXL_version7Rundiffusion.safetensors",

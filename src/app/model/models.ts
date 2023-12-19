@@ -5,7 +5,7 @@ export class ImageSettings {
   performance_selection: string = '';
   aspect_ratios_selection: string = '';
   image_number: number = 0;
-  image_seed: number = -1;
+  image_seed: string = '-1';
   sharpness: number = 0;
   guidance_scale: number = 0;
   base_model_name: string = '';
