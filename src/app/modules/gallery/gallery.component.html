@@ -1,0 +1,5 @@
+<div class="grid grid-cols-4 md:grid-cols-6 gap-4">
+  <div *ngFor="let image of images" class="cursor-pointer">
+    <img class="h-auto max-w-full rounded-lg transition duration-300 ease-in-out transform hover:scale-110" src="{{image}}" alt="" (click)="onImageClick(image)">
+  </div>
+</div>

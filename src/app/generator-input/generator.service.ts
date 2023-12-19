@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ImageData, ImageSettings, JobProgressStatus, JobStatus} from "../model/models";
+import {Image2ImageSettings} from "../model/image2image";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,10 @@ export class GeneratorService {
 
   generateImage(imageSettings: ImageSettings) {
     return this.http.post<ImageData[]>(`${this.apiUrl}/v1/generation/text-to-image`, imageSettings);
+  }
+
+  generateImage2Image(imageSettings: Image2ImageSettings) {
+    return this.http.post<ImageData[]>(`${this.apiUrl}/v2/generation/image-prompt`, imageSettings);
   }
 
   getJobs() {
