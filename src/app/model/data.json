@@ -1,21 +1,36 @@
 [
   {
     "id": "1",
-    "prompt": "studio frontal portrait photo of a 35 year old estonian male, no smile, natural hair, portrait light, film\nstill, white background, 2,5 meter distance",
+    "prompt": "studio frontal portrait passport photo of a 60 year old japanese male, no smile, long black hair, cinematic light, film still, white background",
     "negative_prompt": "(worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated,\noverexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4),\n(watermark, signature, text font, username, error, logo, words, letters, digits, autograph,\ntrademark, name:1.2), (blur, blurry, grainy), asymmetrical, mutated malformed, mutilated, poorly lit,\nbad shadow, draft, cropped, out of frame, cut off, censored, jpeg artifacts, out of focus, glitch,\nduplicate, (airbrushed, cartoon, anime, semi-realistic, cgi, render, blender, digital art, manga,\namateur:1.3), (3D ,3D Game, 3D Game Scene, 3D Character:1.1), (bad hands, bad iris, bad eyes,\nbad anatomy, bad body, bad face, bad teeth, bad arms, bad legs, deformities:1.3), (open mouth)",
-    "seed": 8348023990662121000
+    "seed": "8041796054917713019",
+    "age":  60,
+    "nationality": "japanese",
+    "gender": "male",
+    "hairLength": "long",
+    "hairColor": "black"
   },
   {
     "id": "2",
-    "prompt": "studio frontal portrait photo of a 45 year old portugise male, no smile, rosacea skin, natural hair,\nportrait light, film still, white background",
+    "prompt": "studio frontal portrait passport photo of a 25 year old south african male, no smile, short black hair, cinematic light, film still, white background",
     "negative_prompt": "(worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated,\noverexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4),\n(watermark, signature, text font, username, error, logo, words, letters, digits, autograph,\ntrademark, name:1.2), (blur, blurry, grainy), asymmetrical, mutated malformed, mutilated, poorly lit,\nbad shadow, draft, cropped, out of frame, cut off, censored, jpeg artifacts, out of focus, glitch,\nduplicate, (airbrushed, cartoon, anime, semi-realistic, cgi, render, blender, digital art, manga,\namateur:1.3), (3D ,3D Game, 3D Game Scene, 3D Character:1.1), (bad hands, bad iris, bad eyes,\nbad anatomy, bad body, bad face, bad teeth, bad arms, bad legs, deformities:1.3), (open mouth)",
-    "seed": 4054437925058023737
+    "seed": "1455172194299940907",
+    "age":  25,
+    "nationality": "south african",
+    "gender": "male",
+    "hairLength": "short",
+    "hairColor": "black"
   },
   {
     "id": "3",
     "prompt": "studio frontal portrait passport photo of a 38 year old swedish woman, no smile, long blonde hair, cinematic\nlight, film still, white background",
     "negative_prompt": "(worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated,\noverexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4),\n(watermark, signature, text font, username, error, logo, words, letters, digits, autograph,\ntrademark, name:1.2), (blur, blurry, grainy), asymmetrical, mutated malformed, mutilated, poorly lit,\nbad shadow, draft, cropped, out of frame, cut off, censored, jpeg artifacts, out of focus, glitch,\nduplicate, (airbrushed, cartoon, anime, semi-realistic, cgi, render, blender, digital art, manga,\namateur:1.3), (3D ,3D Game, 3D Game Scene, 3D Character:1.1), (bad hands, bad iris, bad eyes,\nbad anatomy, bad body, bad face, bad teeth, bad arms, bad legs, deformities:1.3), (open mouth)",
-    "seed": "6620513656676188826"
+    "seed": "6620513656676188826",
+    "age":  38,
+    "nationality": "swedish",
+    "gender": "female",
+    "hairLength": "long",
+    "hairColor": "blonde"
   },
   {
     "id": "4",

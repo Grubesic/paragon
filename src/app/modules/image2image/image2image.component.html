@@ -6,20 +6,19 @@
     <mat-card class="h-full ">
       <mat-card-header>Konfigurera person</mat-card-header>
 
-        <mat-radio-group aria-label="Select an option" [(ngModel)]="gender" class="mt-4">
-          <mat-radio-button value="man">Man</mat-radio-button>
-          <mat-radio-button value="woman">Kvinna</mat-radio-button>
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="gender" (ngModelChange)="updatePrompt()" class="mt-4">
+          <mat-radio-button [disabled]="true" value="male">Man</mat-radio-button>
+          <mat-radio-button [disabled]="true" value="female">Kvinna</mat-radio-button>
         </mat-radio-group>
 
         <mat-form-field appearance="fill">
           <mat-label>Ålder</mat-label>
-          <input matInput type="number" [(ngModel)]="age">
+          <input matInput type="number" [(ngModel)]="age" (ngModelChange)="updatePrompt()">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Nationalitet</mat-label>
-          <mat-select [(value)]="nationality">
-            <mat-option>None</mat-option>
+          <mat-select [(value)]="nationality" (selectionChange)="updatePrompt()">
             <mat-option value="swedish">Svensk</mat-option>
             <mat-option value="icelandic">Isländsk</mat-option>
             <mat-option value="american">Amerikansk</mat-option>
@@ -57,8 +56,7 @@
 
         <mat-form-field>
           <mat-label>Hårfärg</mat-label>
-          <mat-select [(value)]="hairColor">
-            <mat-option>None</mat-option>
+          <mat-select [(value)]="hairColor" (selectionChange)="updatePrompt()">
             <mat-option value="blonde">Blond</mat-option>
             <mat-option value="brown">Brun</mat-option>
             <mat-option value="black">Svart</mat-option>
@@ -69,15 +67,42 @@
 
         <mat-form-field>
           <mat-label>Hårlängd</mat-label>
-          <mat-select [(value)]="hairLength">
-            <mat-option>None</mat-option>
+          <mat-select [(value)]="hairLength" (selectionChange)="updatePrompt()">
             <mat-option value="short">Kort</mat-option>
             <mat-option value="long">Långt</mat-option>
           </mat-select>
         </mat-form-field>
 
+      <mat-form-field>
+        <mat-label>Hårtyp</mat-label>
+        <mat-select [(value)]="hairType" (selectionChange)="updatePrompt()">
+          <mat-option value="straight">Rakt</mat-option>
+          <mat-option value="curly">Lockigt</mat-option>
+          <mat-option value="wavy">Vågigt</mat-option>
+          <mat-option value="bald">Skallig</mat-option>
+          <mat-option value="buzzcut">Snaggat</mat-option>
+          <mat-option value="ponytail">Hästsvans</mat-option>
+          <mat-option value="bun">Knut</mat-option>
+          <mat-option value="braided">Flätat</mat-option>
+          <mat-option value="bob">Bob</mat-option>
+          <mat-option value="pixie">Pixie</mat-option>
+          <mat-option value="layered">Lager</mat-option>
+          <mat-option value="shaggy">Shaggy</mat-option>
+          <mat-option value="undercut">Undercut</mat-option>
+          <mat-option value="mohawk">Mohikan</mat-option>
+          <mat-option value="afro">Afro</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-label>Sharpness</mat-label>
+      <mat-label class="ml-2">Glasögon</mat-label>
+      <mat-radio-group aria-label="Glasögon" [(ngModel)]="eyeWear" (ngModelChange)="updatePrompt()">
+        <mat-radio-button value="glases">Läsglasögon</mat-radio-button>
+        <mat-radio-button value="sunglases">Solglasögon</mat-radio-button>
+        <mat-radio-button value="">Inget</mat-radio-button>
+      </mat-radio-group>
+
+
+        <!--mat-label>Sharpness</mat-label>
         <mat-slider>
           <input matSliderThumb>
         </mat-slider>
@@ -85,7 +110,7 @@
         <mat-label>Weight</mat-label>
         <mat-slider>
           <input matSliderThumb>
-        </mat-slider>
+        </mat-slider-->
 
 
 
@@ -135,40 +160,49 @@
                 </div>
               </div>
 
-
             </mat-card-content>
           </mat-card>
         </div>
 
       </div>
-      <div class="input ml-1 w-full" *ngIf="!isGenerating">
-        <mat-card>
-          <mat-card-content>
-            <form (ngSubmit)="generateImage()">
-              <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Prompt</label>
-              <div class="flex">
+      <div class="input w-full" *ngIf="!isGenerating">
+
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Avancerat
+              </mat-panel-title>
+              <mat-panel-description>
+                Starta generering
+                <button [disabled]="isGenerating" class="flex self-center" (click)="generateImage()" mat-icon-button
+                        aria-label="Send">
+                  <mat-icon color="primary">send</mat-icon>
+                </button>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+                <form>
+                  <label for="message" class="block mb-2 mt-2 text-sm font-medium text-gray-900">Prompt</label>
+                  <div class="flex">
           <textarea [disabled]="isGenerating" id="message" rows="4"
                     [(ngModel)]="prompt"
                     name="prompt"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-tw focus:border-primary-tw"
                     placeholder="Prompt..."></textarea>
+                  </div>
+                  <label for="negative" class="block mb-2 mt-2 text-sm font-medium text-gray-900">Negative prompt</label>
 
-                <button [disabled]="isGenerating" class="flex self-center" type="submit" mat-icon-button
-                        aria-label="Send">
-                  <mat-icon color="primary">send</mat-icon>
-                </button>
-              </div>
-              <label for="negative" class="block mb-2 mt-2 text-sm font-medium text-gray-900">Negative prompt</label>
+                  <textarea [disabled]="isGenerating" id="negative" rows="4"
+                            [(ngModel)]="negative"
+                            name="negative"
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-tw focus:border-primary-tw"
+                            placeholder="Negative prompt..."></textarea>
 
-              <textarea [disabled]="isGenerating" id="negative" rows="4"
-                        [(ngModel)]="negative"
-                        name="negative"
-                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-tw focus:border-primary-tw"
-                        placeholder="Negative prompt..."></textarea>
+                </form>
+          </mat-expansion-panel>
+        </mat-accordion>
 
-            </form>
-          </mat-card-content>
-        </mat-card>
       </div>
 
 
@@ -185,6 +219,9 @@
           </svg>
           <span class="mb-1 text-gray-500 md:text-lg">Genererar ansiktsbild.. {{progress}}%</span>
           <span class="sr-only">Loading...</span>
+        </div>
+        <div *ngIf="isGenerating && jobStage != ''" class="p-4 mb-4 text-sm text-primary-tw rounded-lg bg-accent-second-tw mr-5 ml-5 mt-10 " role="alert">
+          <span class="font-medium">{{jobStage}}</span> {{jobStatus}}
         </div>
       </div>
     </div>

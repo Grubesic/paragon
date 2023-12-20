@@ -18,11 +18,12 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSliderModule} from "@angular/material/slider";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @Component({
   selector: 'app-image2image',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatRadioModule, MatSliderModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatRadioModule, MatSliderModule, MatExpansionModule],
   templateUrl: './image2image.component.html',
   styleUrl: './image2image.component.scss'
 })
@@ -51,7 +52,9 @@ export class Image2imageComponent implements OnInit{
   hairLength: string = "short"
   nationality: string = "swedish"
   gender: string = "man"
-
+  eyeWear: string = ""
+  hairType: string = ""
+  panelOpenState = false;
   uploadedImagePath: string = ''
 
   constructor(private route: ActivatedRoute, private imageService: ImageService, private generatorService: GeneratorService) {
@@ -67,8 +70,13 @@ export class Image2imageComponent implements OnInit{
 
       for (const i of imageData){
         if(i.id == idString){
+          this.age = i.age;
+          this.nationality = i.nationality
+          this.gender = i.gender
+          this.hairColor = i.hairColor
+          this.hairLength = i.hairLength
           this.imageSeedData = i;
-          this.prompt = this.imageSeedData.prompt
+          this.prompt = `studio frontal portrait passport photo of a ${this.age} year old ${this.nationality} ${this.gender}, no smile, ${this.hairLength} ${this.hairColor} hair, cinematic light, film still, white background`
           this.negative = this.imageSeedData.negative_prompt
           console.log("Found image seed")
           console.log(this.imageSeedData)
@@ -212,6 +220,10 @@ export class Image2imageComponent implements OnInit{
 
 retainOnlyNumbers(inputString: string): string {
     return inputString.replace(/[^\d]/g, '');
+  }
+
+  updatePrompt(): void {
+    this.prompt = `studio frontal portrait passport photo of a ${this.age} year old ${this.nationality} ${this.gender}, no smile, ${this.hairLength} ${this.hairColor} ${this.hairType} hair, cinematic light, film still, white background, ${this.eyeWear} `;
   }
 
 }
