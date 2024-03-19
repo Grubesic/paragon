@@ -1,0 +1,56 @@
+<div class="bg-gray-100 h-full overflow-hidden">
+  <div class="flex h-full">
+    <!-- Left Sidebar for Chats -->
+    <div class="w-64 bg-white border-r border-gray-200 overflow-y-auto">
+      <div class="p-5">
+        <h2 class="text-lg font-semibold">Chats</h2>
+        <!-- List of chats -->
+        <div class="mt-4">
+          <div class="py-2 px-3 bg-blue-100 rounded-lg mb-2">Chat 1</div>
+          <div class="py-2 px-3 hover:bg-gray-50 rounded-lg mb-2">Chat 2</div>
+          <div class="py-2 px-3 hover:bg-gray-50 rounded-lg mb-2">Chat 3</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Chat Window -->
+    <div class="flex-1 flex flex-col bg-white">
+      <!-- Chat Messages -->
+      <ng-scrollbar class="flex-1 p-5">
+        <div class="scroll-content">
+          <app-chat-message *ngFor="let message of messages" [messageModel]="message"></app-chat-message>
+          <div #messagesEnd></div>
+        </div>
+      </ng-scrollbar>
+
+      <!-- Chat Input -->
+      <div class="border-t border-gray-200 p-4 flex justify-center">
+        <div class="w-2/3">
+          <form>
+            <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="h-4 w-4 text-gray-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              </div>
+              <input type="search" id="search"
+                     class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-opacity-20  dark:bg-primary-tw dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-tw dark:focus:bg-primary-tw"
+                     placeholder="Fråga Advokado.."
+                     [(ngModel)]="userInput" name="userInput"
+              />
+              <button (click)="sendMessage()" type="submit"
+                      class="text-white absolute end-3 bottom-2.5 bg-primary-tw hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-tw dark:hover:bg-gray-800 dark:focus:ring-blue-800">
+                <svg class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="19" x2="12" y2="5"/>
+                  <polyline points="5 12 12 5 19 12"/>
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
