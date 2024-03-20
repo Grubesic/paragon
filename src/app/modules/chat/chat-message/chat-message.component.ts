@@ -1,12 +1,16 @@
-import {Component, input, Input} from '@angular/core';
+import {Component, inject, input, Input} from '@angular/core';
 import {IMessage} from "../../../core/models/interfaces";
-import {NgIf} from "@angular/common";
+import {CommonModule, NgIf} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {AuthGuardService} from "../../../core/auth/authguard.service";
+import {Observable} from "rxjs";
+
 
 @Component({
   selector: 'app-chat-message',
   standalone: true,
   imports: [
+    CommonModule,
     NgIf
   ],
   templateUrl: './chat-message.component.html',
@@ -15,9 +19,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class ChatMessageComponent {
 
   @Input() messageModel: IMessage | undefined;
+  authService: AuthGuardService = inject(AuthGuardService);
 
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar) {
+  }
 
   getFirstTwoChars(input: string | undefined): string {
     if(input != undefined){

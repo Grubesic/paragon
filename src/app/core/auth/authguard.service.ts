@@ -1,20 +1,35 @@
-import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot
-} from '@angular/router';
-import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
+import {computed, Injectable, signal} from '@angular/core';
+import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
+import {KeycloakAuthGuard, KeycloakEventType, KeycloakService} from 'keycloak-angular';
+import {KeycloakProfile} from "keycloak-js";
+import {from, map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardService extends KeycloakAuthGuard {
+
+  private account = signal<KeycloakProfile | null>(null)
+
+  user = computed(() => this.account());
+
   constructor(
     protected override readonly router: Router,
     protected readonly keycloak: KeycloakService
   ) {
     super(router, keycloak);
+    keycloak.keycloakEvents$.subscribe({
+      next(event) {
+        console.log(event)
+        if (event.type == KeycloakEventType.OnTokenExpired) {
+          keycloak.updateToken(20);
+        }
+        if (event.type == KeycloakEventType.OnAuthSuccess) {
+          console.log("Auth success")
+        }
+        console.log("keycloak event:" + event)
+      }
+    });
   }
 
   public async isAccessAllowed(
@@ -28,17 +43,47 @@ export class AuthGuardService extends KeycloakAuthGuard {
       });
     }
 
+    this.getAccount().subscribe({
+      next: data => {
+        if(data){
+          this.account.set(data)
+        }
+      }
+    })
+
     // Get the roles required from the route.
-   /* const requiredRoles = route.data['roles'];
+    const requiredRoles = route.data['roles'];
 
     // Allow the user to proceed if no additional roles are required to access the route.
     if (!Array.isArray(requiredRoles) || requiredRoles.length === 0) {
       return true;
-    }*/
+    }
 
     // Allow the user to proceed if all the required roles are present.
-    //return requiredRoles.every((role) => this.roles.includes(role));
+    return requiredRoles.every((role) => this.roles.includes(role));
+  }
 
-    return true;
+  // Retrieve the logged-in user's details
+  public async getLoggedInUser(): Promise<KeycloakProfile | null> {
+    try {
+      if (this.authenticated) {
+        // Retrieve the user's profile
+        return await this.keycloak.loadUserProfile();
+      }
+      return null; // User is not authenticated
+    } catch (error) {
+      console.error('Failed to load user profile', error);
+      return null;
+    }
+  }
+
+
+  getAccount(): Observable<KeycloakProfile | null> {
+    // Convert the Promise returned by getLoggedInUser() into an Observable
+    return from(this.getLoggedInUser());
+  }
+
+  logout(){
+    this.keycloak.logout()
   }
 }

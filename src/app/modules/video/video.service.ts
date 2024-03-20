@@ -5,7 +5,7 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class VideoService {
-  private apiUrl = 'http://localhost:8081/video'; // Update with actual API URL
+  private apiUrl = 'http://localhost:8081/video';
 
   constructor(private http: HttpClient) {}
 

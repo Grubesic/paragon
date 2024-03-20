@@ -1,9 +1,11 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, ViewChild} from '@angular/core';
 import {ChatMessageComponent} from "./chat-message/chat-message.component";
 import {IMessage} from "../../core/models/interfaces";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {NgScrollbar, NgScrollbarModule} from 'ngx-scrollbar';
+import {AuthGuardService} from "../../core/auth/authguard.service";
+import {ChatService} from "./chat.service";
 
 @Component({
   selector: 'app-chat',
@@ -23,6 +25,8 @@ export class ChatComponent implements AfterViewInit{
   userInput = '';
 
   @ViewChild(NgScrollbar) scrollbar: NgScrollbar | undefined;
+  authService: AuthGuardService = inject(AuthGuardService);
+  private chatService: ChatService = inject(ChatService);
 
   ngAfterViewInit(): void {
     this.scrollToBottom();
@@ -71,10 +75,16 @@ export class ChatComponent implements AfterViewInit{
       message: this.userInput,
       timestamp: this.getCurrentTime(),
       isUser: true,
-      name: "Du"
+      name: this.authService.user()?.username!
     },)
     this.userInput = ''
     this.scrollToBottom()
+    this.chatService.sendMessage({
+      messageId: "1",
+      senderId: this.authService.user()?.id!,
+      content: this.userInput,
+      timestamp: new Date(),
+    })
 
   }
 

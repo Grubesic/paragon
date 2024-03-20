@@ -6,7 +6,9 @@ import { nonNavbarRoutes} from "./app.routes";
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
-import {provideClientHydration} from "@angular/platform-browser";
+import {AuthGuardService} from "./core/auth/authguard.service";
+import {RxStompService} from "./core/ws/rx-stomp.service";
+import {rxStompServiceFactory} from "./core/ws/rx-stomp-service-factory";
 
 const allRoutes: Routes = [...routes, ...nonNavbarRoutes];
 
@@ -16,8 +18,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
       // Configuration details for Keycloak
       config: {
         url: 'http://192.168.50.76:7200',
-        realm: 'paragon',
-        clientId: 'paragon-client'
+        realm: 'quickstart',
+        clientId: 'web-client',
       },
       // Options for Keycloak initialization
       initOptions: {
@@ -51,10 +53,18 @@ const KeycloakInitializerProvider: Provider = {
   deps: [KeycloakService]
 }
 
+const RxStompServiceProvider: Provider =  [
+  {
+    provide: RxStompService,
+    useFactory: rxStompServiceFactory,
+  },
+];
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(allRoutes),
+    RxStompServiceProvider,
     provideHttpClient(withInterceptorsFromDi()), // Provides HttpClient with interceptors
     KeycloakInitializerProvider, // Initializes Keycloak
     KeycloakBearerInterceptorProvider, // Provides Keycloak Bearer Interceptor
