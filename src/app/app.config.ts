@@ -18,8 +18,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
       // Configuration details for Keycloak
       config: {
         url: 'http://192.168.50.76:7200',
-        realm: 'quickstart',
-        clientId: 'web-client',
+        realm: 'grubesic',
+        clientId: 'grubesic-client',
       },
       // Options for Keycloak initialization
       initOptions: {

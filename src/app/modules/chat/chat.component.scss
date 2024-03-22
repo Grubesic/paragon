@@ -1,0 +1,27 @@
+@keyframes dotFlashing {
+  0%, 60%, 100% { transform: translateY(-50%); opacity: 0; }
+  25% { transform: translateY(-50%); opacity: 1; }
+}
+
+.dot {
+  background-color: currentColor;
+  border-radius: 9999px;
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.25rem;
+  opacity: 0;
+  animation: dotFlashing 1.5s infinite;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 1s;
+}

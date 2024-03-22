@@ -4,6 +4,7 @@ import {CommonModule, NgIf} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthGuardService} from "../../../core/auth/authguard.service";
 import {Observable} from "rxjs";
+import {ChatMessage} from "../chat.types";
 
 
 @Component({
@@ -18,7 +19,7 @@ import {Observable} from "rxjs";
 })
 export class ChatMessageComponent {
 
-  @Input() messageModel: IMessage | undefined;
+  @Input() messageModel: ChatMessage | undefined;
   authService: AuthGuardService = inject(AuthGuardService);
 
 

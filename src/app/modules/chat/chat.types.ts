@@ -2,8 +2,10 @@
 export interface ChatMessage {
   messageId: string;
   senderId: string;
+  name: string;
   content: string;
   timestamp: Date;
+  isUser: boolean
   isFinalChunk?: boolean; // Optional, used if implementing chunked messages
 }
 

@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/rout
 import {KeycloakAuthGuard, KeycloakEventType, KeycloakService} from 'keycloak-angular';
 import {KeycloakProfile} from "keycloak-js";
 import {from, map, Observable} from "rxjs";
+import {resolve} from "@angular/compiler-cli";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ export class AuthGuardService extends KeycloakAuthGuard {
 
   private account = signal<KeycloakProfile | null>(null)
 
+  private authToken = signal<string>("")
+
   user = computed(() => this.account());
+
+  token = computed(() => this.authToken());
 
   constructor(
     protected override readonly router: Router,
@@ -51,6 +56,8 @@ export class AuthGuardService extends KeycloakAuthGuard {
       }
     })
 
+    await this.getToken()
+
     // Get the roles required from the route.
     const requiredRoles = route.data['roles'];
 
@@ -82,6 +89,12 @@ export class AuthGuardService extends KeycloakAuthGuard {
     // Convert the Promise returned by getLoggedInUser() into an Observable
     return from(this.getLoggedInUser());
   }
+
+  async getToken() {
+   let token = await this.keycloak.getToken()
+    this.authToken.set(token)
+  }
+
 
   logout(){
     this.keycloak.logout()

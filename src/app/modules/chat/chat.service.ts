@@ -2,8 +2,9 @@ import {inject, Injectable} from '@angular/core';
 import {signal, computed, effect} from '@angular/core';
 import {ChatMessage, UserStatus} from './chat.types';
 import {RxStompService} from "../../core/ws/rx-stomp.service";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {data} from "autoprefixer";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
+import {WebSocketService} from "../../core/ws/websocket.service";
+import {AuthGuardService} from "../../core/auth/authguard.service";
 
 @Injectable({
   providedIn: 'root',
@@ -12,31 +13,43 @@ export class ChatService {
   private apiUrl = 'http://localhost:8081/api';
 
   private messages = signal<ChatMessage[]>([]);
+  private messagesLoading = signal<boolean>(false);
+
   private userStatus = signal<UserStatus | null>(null);
   private messageChunks = signal<{ [messageId: string]: ChatMessage[] }>({});
-  private stompService: RxStompService = inject(RxStompService);
 
+  private stompService: RxStompService = inject(RxStompService);
+  private authService: AuthGuardService = inject(AuthGuardService)
+
+  allMessages = computed(() => this.messages());
   user = computed(() => this.userStatus());
+  isLoading = computed(() => this.messagesLoading());
 
   private http: HttpClient = inject(HttpClient);
+  private webocketService: WebSocketService = inject(WebSocketService)
 
   constructor() {
-   // this.initializeSubscriptions();
-    //this.assembleChunksEffect();
-    this.testEndpoints()
+    // this.testEndpoints()
+    this.webocketService.activateWebSocket().subscribe({
+      next: data => {
+        console.log(data)
+        this.initializeSubscriptions()
+      }
+    })
+
   }
 
   private initializeSubscriptions(): void {
-    // Assuming '/topic/chatMessageChunks' is the destination for chunked messages
-    this.stompService.watch('/app/user/queue/message').subscribe({
+    this.stompService.watch(`/user/queue/message`).subscribe({
       next: (message) => {
         console.log(message)
         const chunk: ChatMessage = JSON.parse(message.body);
-        this.handleMessageChunk(chunk);
+        this.addMessages(chunk)
+        this.setIsLoading(false)
+        //this.handleMessageChunk(chunk);
       },
     });
 
-    // Other subscriptions remain the same
   }
 
   private handleMessageChunk(chunk: ChatMessage): void {
@@ -77,7 +90,6 @@ export class ChatService {
     return {...parts[0], content: combinedContent}; // Simplified
   }
 
-
   public sendMessage(chatMessage: ChatMessage): void {
     this.stompService.publish({destination: '/app/queue/chat', body: JSON.stringify(chatMessage)});
   }
@@ -87,27 +99,33 @@ export class ChatService {
   }
 
   testEndpoints() {
-    const headers = new HttpHeaders();
-    headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('Access-Control-Allow-Methods', 'DELETE, POST, GET, OPTIONS');
-    headers.append('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
-    this.http.get<string>(`${this.apiUrl}/foo1`,{headers}).subscribe({
+    this.http.get<any>(`${this.apiUrl}/user`).subscribe({
       next: data => {
         console.log(data)
       },
       error: error => {
-        console.error(data)
+        console.error(error)
       }
     });
 
-    this.http.get<string>(`${this.apiUrl}/foo2`, {headers}).subscribe({
+    this.http.get<any>(`${this.apiUrl}/admin`).subscribe({
       next: data => {
         console.log(data)
       },
       error: error => {
-        console.error(data)
+        console.error(error)
       }
     });
+  }
+
+  addMessages(message: ChatMessage){
+    this.messages.update((currentMessages) => {
+      return [...currentMessages, message]
+    })
+  }
+
+  setIsLoading(isLoading: boolean){
+    this.messagesLoading.set(isLoading);
   }
 
 }
