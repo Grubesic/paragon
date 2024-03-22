@@ -12,7 +12,46 @@ import {AuthGuardService} from "../../core/auth/authguard.service";
 export class ChatService {
   private apiUrl = 'http://localhost:8081/api';
 
-  private messages = signal<ChatMessage[]>([]);
+  messagesInitial: ChatMessage[] = [
+    {
+      messageId: "1",
+      senderId: "1",
+      name: "System",
+      content: "To create a page that resembles the ChatGPT interface with a left-hand side menu for current chats and a main window for chat input and messages, we will use Tailwind CSS for styling and Flowbite for any UI components we may include. This layout will be responsive and include a sidebar for chat sessions and a main chat area.\n" +
+        "\n" +
+        "First, let's outline the basic HTML structure and then apply Tailwind CSS classes for styling:",
+      timestamp: new Date(),
+      isUser: false,
+    },
+    {
+      messageId: "2",
+      senderId: "2",
+      name: "admin",
+      content: "typescript function that takes string and returns two first strings",
+      timestamp: new Date(),
+      isUser: true,
+    },
+    {
+      messageId: "3",
+      senderId: "3",
+      name: "System",
+      content: "It seems like you're trying to use Angular Material components along with Angular Router, but there's a small syntax error in your code. Specifically, the issue lies in the way you've used the [routerLink] directive. When you use property binding ([routerLink] in this case), the value should be an expression or a variable inside your component's TypeScript file. Since you're providing a string path directly, it should be enclosed in quotes within the brackets. Here's the corrected version:",
+      timestamp: new Date(),
+      isUser: false,
+    },
+    {
+      messageId: "4",
+      senderId: "4",
+      name: "admin",
+      content: "typescript function that takes string and returns two first strings",
+      timestamp: new Date(),
+      isUser: true,
+
+    },
+
+  ]
+
+  private messages = signal<ChatMessage[]>(this.messagesInitial);
   private messagesLoading = signal<boolean>(false);
 
   private userStatus = signal<UserStatus | null>(null);
@@ -126,6 +165,27 @@ export class ChatService {
 
   setIsLoading(isLoading: boolean){
     this.messagesLoading.set(isLoading);
+  }
+
+  private updateMessagesSignal(incomingMessage: ChatMessage): void {
+    // Use .update() method of the signal to modify the messages
+    this.messages.update((currentMessages) => {
+      const existingIndex = currentMessages.findIndex(m => m.messageId === incomingMessage.messageId);
+
+      if (existingIndex !== -1) {
+        // If message exists, update its content
+        const updatedMessages = [...currentMessages];
+        const existingMessage = updatedMessages[existingIndex];
+        updatedMessages[existingIndex] = {
+          ...existingMessage,
+          content: existingMessage.content + incomingMessage.content
+        };
+        return updatedMessages;
+      } else {
+        // If it's a new message, add it to the array
+        return [...currentMessages, incomingMessage];
+      }
+    });
   }
 
 }
