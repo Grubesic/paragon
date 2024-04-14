@@ -1,9 +1,8 @@
-<footer>
+<footer class="h-full">
   <!--button mat-icon-button (click)="isNavbarOpened = !isNavbarOpened">
     <mat-icon>menu</mat-icon>
   </button-->
-  <div class="flex gap-2 items-center justify-center divide-x-4 divide-y border-b-2">
-    <p class="text-sm font-bold ml-1">&#64;Paragon 2023</p>
+  <div class="flex gap-2 justify-center items-center h-full mr-8">
 
 
 
@@ -12,7 +11,7 @@
       <div class="flex items-center gap-2">
         <mat-divider vertical="true"></mat-divider>
         <mat-icon>desktop_mac</mat-icon>
-        <span> lx503218</span>
+        <span>{{ipService.ip().ip}}</span>
       </div>
 
       <div class="flex items-center gap-2">

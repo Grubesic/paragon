@@ -5,12 +5,13 @@ import {RxStompService} from "../../core/ws/rx-stomp.service";
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {WebSocketService} from "../../core/ws/websocket.service";
 import {AuthGuardService} from "../../core/auth/authguard.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  private apiUrl = 'http://localhost:8081/api';
+  private apiUrl = environment.apiUrl;
 
   messagesInitial: ChatMessage[] = [
     {
@@ -21,7 +22,7 @@ export class ChatService {
         "\n" +
         "First, let's outline the basic HTML structure and then apply Tailwind CSS classes for styling:",
       timestamp: new Date(),
-      isUser: false,
+      user: false,
     },
     {
       messageId: "2",
@@ -29,7 +30,7 @@ export class ChatService {
       name: "admin",
       content: "typescript function that takes string and returns two first strings",
       timestamp: new Date(),
-      isUser: true,
+      user: true,
     },
     {
       messageId: "3",
@@ -37,7 +38,7 @@ export class ChatService {
       name: "System",
       content: "It seems like you're trying to use Angular Material components along with Angular Router, but there's a small syntax error in your code. Specifically, the issue lies in the way you've used the [routerLink] directive. When you use property binding ([routerLink] in this case), the value should be an expression or a variable inside your component's TypeScript file. Since you're providing a string path directly, it should be enclosed in quotes within the brackets. Here's the corrected version:",
       timestamp: new Date(),
-      isUser: false,
+      user: false,
     },
     {
       messageId: "4",
@@ -45,7 +46,7 @@ export class ChatService {
       name: "admin",
       content: "typescript function that takes string and returns two first strings",
       timestamp: new Date(),
-      isUser: true,
+      user: true,
 
     },
 
@@ -67,6 +68,9 @@ export class ChatService {
   private http: HttpClient = inject(HttpClient);
   private webocketService: WebSocketService = inject(WebSocketService)
 
+  private messageQueue: ChatMessage[] = [];
+  private isProcessingQueue = false;
+
   constructor() {
     // this.testEndpoints()
     this.webocketService.activateWebSocket().subscribe({
@@ -81,54 +85,38 @@ export class ChatService {
   private initializeSubscriptions(): void {
     this.stompService.watch(`/user/queue/message`).subscribe({
       next: (message) => {
-        console.log(message)
+
         const chunk: ChatMessage = JSON.parse(message.body);
-        this.addMessages(chunk)
-        this.setIsLoading(false)
-        //this.handleMessageChunk(chunk);
+        this.messageQueue.push(chunk);
+        if (!this.isProcessingQueue) {
+          this.processQueue();
+        }
       },
     });
 
   }
 
-  private handleMessageChunk(chunk: ChatMessage): void {
-    this.messageChunks.update((currentChunks) => {
-      const chunks = currentChunks[chunk.messageId] || [];
-      return {...currentChunks, [chunk.messageId]: [...chunks, chunk]};
-    });
-  }
+  private processQueue(): void {
+    if (this.messageQueue.length === 0) {
+      this.isProcessingQueue = false;
+      return;
+    }
 
-  private assembleChunksEffect(): void {
-    effect(() => {
-      const chunks = this.messageChunks();
-      Object.keys(chunks).forEach((messageId) => {
-        const messageParts = chunks[messageId];
-        // Define your logic to determine if all chunks have been received
-        if (this.isComplete(messageParts)) {
-          const fullMessage = this.assembleMessage(messageParts);
-          this.messages.update((msgs) => [...msgs, fullMessage]);
-          // Remove processed chunks
-          const updatedChunks = {...chunks};
-          delete updatedChunks[messageId];
-          this.messageChunks.set(updatedChunks);
-        }
-      });
-    });
-  }
+    this.isProcessingQueue = true;
+    const message = this.messageQueue.shift();
 
-  private isComplete(parts: ChatMessage[]): boolean {
-    // Implement your logic to check if all parts of the message have been received
-    // For example, check if a `isFinalChunk` flag is true in the last part
-    return parts.some(part => part.isFinalChunk);
-  }
+    // Update your UI with the new message
+    if(message != undefined)
+      if(message.finalChunk){
+        this.setIsLoading(false)
+      } else {
+        this.updateMessagesSignal(message)
+      }
 
-  private assembleMessage(parts: ChatMessage[]): ChatMessage {
-    // Implement your logic to combine chunks into a complete message
-    // Example: concatenate the content of each part
-    const combinedContent = parts.reduce((acc, part) => acc + part.content, '');
-    return {...parts[0], content: combinedContent}; // Simplified
+    setTimeout(() => {
+      this.processQueue();
+    }, 100); // Delay
   }
-
   public sendMessage(chatMessage: ChatMessage): void {
     this.stompService.publish({destination: '/app/queue/chat', body: JSON.stringify(chatMessage)});
   }

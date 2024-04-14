@@ -5,8 +5,8 @@ export interface ChatMessage {
   name: string;
   content: string;
   timestamp: Date;
-  isUser: boolean
-  isFinalChunk?: boolean; // Optional, used if implementing chunked messages
+  user: boolean
+  finalChunk?: boolean; // Optional, used if implementing chunked messages
 }
 
 // user-status.dto.ts

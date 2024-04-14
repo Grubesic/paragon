@@ -5,6 +5,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthGuardService} from "../../../core/auth/authguard.service";
 import {Observable} from "rxjs";
 import {ChatMessage} from "../chat.types";
+import {TypewriterEffectDirective} from "../typewriter-effect.directive";
 
 
 @Component({
@@ -12,7 +13,8 @@ import {ChatMessage} from "../chat.types";
   standalone: true,
   imports: [
     CommonModule,
-    NgIf
+    NgIf,
+    TypewriterEffectDirective
   ],
   templateUrl: './chat-message.component.html',
   styleUrl: './chat-message.component.scss'

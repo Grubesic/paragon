@@ -5,3 +5,8 @@ export interface IMessage {
   isUser: boolean;
   name: string
 }
+
+
+export interface IPAddress {
+  ip: string
+}

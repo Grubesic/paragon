@@ -45,12 +45,12 @@ export class ChatComponent implements AfterViewInit {
     this.chatService.setIsLoading(true)
     if (!this.userInput.trim()) return;
     let message = {
-      messageId: "1",
+      messageId: "",
       senderId: this.authService.user()?.id!,
       name: this.authService.user()?.username!,
       content: this.userInput,
       timestamp: new Date(),
-      isUser: true
+      user: true
     }
 
     this.chatService.addMessages(message)

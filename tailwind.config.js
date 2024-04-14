@@ -10,7 +10,7 @@ module.exports = {
         'accent-tw': '#FFCC33', // paragon accent
         'accent-second-tw': '#e4e8ed' // paragon accent second
 
-      }
+      },
     },
   },
   plugins: [],
