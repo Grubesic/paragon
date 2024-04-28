@@ -47,7 +47,6 @@ export class CalendarComponent {
       let events = this.calendarService.persons().map(person => {
         const birthDate = new Date(person.birthdate);
         const eventDate = new Date(currentYear, birthDate.getMonth(), birthDate.getDate());
-        console.log(`${person.firstName} ${person.lastName}'s Birthday ${currentYear}-${birthDate.getMonth()}-${birthDate.getDay()}`)
         return {
           title: `${person.firstName} ${person.lastName}'s Birthday`,
           date: this.formatDate(eventDate),  // Format as YYYY-MM-DD

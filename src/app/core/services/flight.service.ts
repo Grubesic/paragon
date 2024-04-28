@@ -1,6 +1,7 @@
 import {computed, inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {FlightData} from "../models/flight.model";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class FlightService {
 
 
   private getFlights(){
-    this.httpClient.get<FlightData>("http://localhost:8081/api/flights").subscribe({
+    this.httpClient.get<FlightData>(environment.apiUrl + "/api/flights").subscribe({
       next: (data) => {
         console.log(data)
         this.flightSignal.set(data)

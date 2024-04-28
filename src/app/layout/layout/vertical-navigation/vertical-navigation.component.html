@@ -3,17 +3,20 @@
   <!-- Top section: logo or user info -->
   <div>
     <img *ngIf="!isNavbarOpened" src="assets/logo/logo.png" alt="Logo" class="h-16 w-16">
-    <div *ngIf="isNavbarOpened" class="flex-col ">
-      <div
-        class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-primary-tw">
-        <span class="font-medium text-gray-600 dark:text-gray-300">RG</span>
-      </div>
+    <div class="flex gap-11 mt-4 ml-4">
+      <div *ngIf="isNavbarOpened" class="flex-col ">
+        <div
+          class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-primary-tw">
+          <span class="font-medium text-gray-600 dark:text-gray-300">{{utilService.getFirstTwoChars(authService.user()?.username)}}</span>
+        </div>
 
-      <div class="text-xs dark:text-primary-tw">
-        <div>{{authService.user()?.email}}</div>
-        <div>{{authService.user()?.username}}</div>
+        <div class="text-xs dark:text-primary-tw mt-1">
+          <div>{{authService.user()?.email}}</div>
+          <div>{{authService.user()?.username}}</div>
+        </div>
       </div>
     </div>
+
 
   </div>
 
@@ -27,7 +30,7 @@
            routerLinkActive="active-link" #rla="routerLinkActive">
           <div class="flex content-center gap-2">
             <mat-icon [color]="rla.isActive ? 'primary' : undefined">{{ route.data['icon'] }}</mat-icon>
-            <span  [ngClass]="{'text-primary-tw': rla.isActive}" *ngIf="isNavbarOpened">{{ route.data['name'] }}</span>
+            <span [ngClass]="{'text-primary-tw': rla.isActive}" *ngIf="isNavbarOpened">{{ route.data['name'] }}</span>
           </div>
         </a>
         <mat-divider></mat-divider>

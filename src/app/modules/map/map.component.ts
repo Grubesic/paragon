@@ -5,6 +5,7 @@ import {WeatherService} from "../weather/weather.service";
 import { FeatureCollection, Geometry } from 'geojson';
 import {FlightService} from "../../core/services/flight.service";
 import {StateVector} from "../../core/models/flight.model";
+import {PoliceService} from "../../core/services/police.service";
 
 @Component({
   selector: 'app-map',
@@ -17,9 +18,11 @@ export class MapComponent implements OnInit {
 
   weatherService = inject(WeatherService)
   flightService = inject(FlightService)
+  policeService = inject(PoliceService)
 
   constructor(private injector: Injector) {
-   // this.handleMultipoint()
+    this.handleMultipoint()
+    console.log(this.policeService.policeEvents)
   }
 
 

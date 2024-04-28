@@ -5,7 +5,7 @@
 
     <div *ngIf="messageModel?.user"
          class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-primary-tw">
-      <span class="font-medium text-gray-600 dark:text-gray-300">{{getFirstTwoChars(authService.user()?.firstName)}}</span>
+      <span class="font-medium text-gray-600 dark:text-gray-300">{{utilService.getFirstTwoChars(authService.user()?.firstName)}}</span>
     </div>
     <div
       class="flex flex-col w-full max-w-[700px] leading-1.5 p-4 border-gray-200 bg-primary-tw rounded-e-xl rounded-es-xl dark:bg-primary-tw">

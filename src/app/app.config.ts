@@ -9,6 +9,7 @@ import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
 import {AuthGuardService} from "./core/auth/authguard.service";
 import {RxStompService} from "./core/ws/rx-stomp.service";
 import {rxStompServiceFactory} from "./core/ws/rx-stomp-service-factory";
+import {environment} from "../environments/environment";
 
 const allRoutes: Routes = [...routes, ...nonNavbarRoutes];
 
@@ -17,7 +18,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     keycloak.init({
       // Configuration details for Keycloak
       config: {
-        url: 'http://192.168.50.76:7200',
+        url: environment.iss,
         realm: 'grubesic',
         clientId: 'grubesic-client',
       },

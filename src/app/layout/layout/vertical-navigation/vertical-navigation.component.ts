@@ -8,6 +8,7 @@ import {MatLineModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
 import {routes} from "../../../app.routes";
 import {AuthGuardService} from "../../../core/auth/authguard.service";
+import {UtilsService} from "../../../core/services/utils.service";
 
 @Component({
   selector: 'app-vertical-navigation',
@@ -21,6 +22,7 @@ export class VerticalNavigationComponent{
   @Output() isNavbarOpenedChange = new EventEmitter<boolean>();
   public routeLinks = routes;
   authService: AuthGuardService = inject(AuthGuardService);
+  utilService: UtilsService = inject(UtilsService)
 
 
   constructor() {

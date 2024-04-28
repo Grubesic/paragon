@@ -6,6 +6,7 @@ import {AuthGuardService} from "../../../core/auth/authguard.service";
 import {Observable} from "rxjs";
 import {ChatMessage} from "../chat.types";
 import {TypewriterEffectDirective} from "../typewriter-effect.directive";
+import {UtilsService} from "../../../core/services/utils.service";
 
 
 @Component({
@@ -23,22 +24,12 @@ export class ChatMessageComponent {
 
   @Input() messageModel: ChatMessage | undefined;
   authService: AuthGuardService = inject(AuthGuardService);
+  utilService: UtilsService = inject(UtilsService);
 
 
   constructor(private _snackBar: MatSnackBar) {
   }
 
-  getFirstTwoChars(input: string | undefined): string {
-    if(input != undefined){
-      if (input.length >= 2) {
-        return input.substring(0, 2).toUpperCase();
-      } else {
-        // If the input is less than 2 characters long, return the original string
-        return input;
-      }
-    }
-    return ""
-  }
 
   copyText(text: string): void {
     navigator.clipboard.writeText(text).then(() => {
