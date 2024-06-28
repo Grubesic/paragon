@@ -72,7 +72,6 @@ export class ChatService {
   private isProcessingQueue = false;
 
   constructor() {
-    // this.testEndpoints()
     this.webocketService.activateWebSocket().subscribe({
       next: data => {
         console.log(data)
@@ -93,7 +92,6 @@ export class ChatService {
         }
       },
     });
-
   }
 
   private processQueue(): void {

@@ -1,13 +1,36 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {WebSocketService} from "../../core/ws/websocket.service";
+import {ChatMessage} from "../chat/chat.types";
+import {RxStompService} from "../../core/ws/rx-stomp.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
   private apiUrl = 'http://localhost:8081/video';
+  private http: HttpClient = inject(HttpClient)
+  private webSocketService: WebSocketService = inject(WebSocketService)
+  private stompService: RxStompService = inject(RxStompService)
 
-  constructor(private http: HttpClient) {}
+  constructor() {
+
+    this.webSocketService.activateWebSocket().subscribe({
+      next: data => {
+        if(data)
+        this.initializeSubscriptions()
+      }
+    })
+  }
+
+  private initializeSubscriptions(): void {
+    this.stompService.watch(`/topic/video-frame`).subscribe({
+      next: (message) => {
+        console.log(message)
+      },
+    });
+  }
+
 
   uploadVideo(file: File, name: string) {
     const formData = new FormData();

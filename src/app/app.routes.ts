@@ -10,6 +10,7 @@ import {ChatComponent} from "./modules/chat/chat.component";
 import {MapComponent} from "./modules/map/map.component";
 import {WeatherComponent} from "./modules/weather/weather.component";
 import {CalendarComponent} from "./modules/calendar/calendar.component";
+import {SystemOverviewComponent} from "./modules/system-overview/system-overview.component";
 
 export const routes: Routes = [
   { path: '', component: MapComponent, canActivate: [AuthGuardService] },
