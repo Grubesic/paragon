@@ -1,1 +1,10 @@
-<app-video-player></app-video-player>
+<!--app-video-player></app-video-player-->
+
+<div>
+  <h1>Passport Reader</h1>
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="passportData.length">
+    <div *ngFor="let data of passportData">{{ data }}</div>
+  </div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+</div>

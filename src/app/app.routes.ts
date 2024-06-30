@@ -13,7 +13,7 @@ import {CalendarComponent} from "./modules/calendar/calendar.component";
 import {SystemOverviewComponent} from "./modules/system-overview/system-overview.component";
 
 export const routes: Routes = [
-  { path: '', component: MapComponent, canActivate: [AuthGuardService] },
+  { path: '', component: DashboardComponent, canActivate: [AuthGuardService] },
   { path: 'dashboard', component: DashboardComponent, data: { icon: 'dashboard', name: 'Dashboard' }, canActivate: [AuthGuardService] },
   { path: 'map', component: MapComponent, data: { icon: 'map', name: 'Map' }, canActivate: [AuthGuardService] },
   { path: 'calendar', component: CalendarComponent, data: { icon: 'calendar_today', name: 'Calendar' }, canActivate: [AuthGuardService] },
